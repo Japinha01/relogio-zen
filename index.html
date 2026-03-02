@@ -2,102 +2,75 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>Relógio Zen v2.2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relógio Digital</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        /* Estilização Geral */
         body {
+            background-color: #000000; /* Fundo Preto */
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            background-color: #000;
-            color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            overflow: hidden;
+            min-height: 100vh;
         }
 
-        .clock-container {
+        /* Container Principal */
+        .main-container {
             text-align: center;
-            margin-bottom: 20px;
-            user-select: none;
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
         }
 
-        #time {
-            font-size: 24vw;
-            font-weight: 200;
-            line-height: 1;
-            letter-spacing: -2px;
+        /* Estilo do Relógio */
+        #clock {
+            font-size: 100px;
+            font-weight: bold;
+            letter-spacing: 5px;
+            margin-bottom: 30px;
+            font-variant-numeric: tabular-nums; /* Evita que os números "pulem" */
         }
 
-        #date {
-            font-size: 4.5vw;
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.4);
-            margin-top: 5px;
-            text-transform: lowercase;
-        }
-
-        /* Container do Player ajustado para o seu link */
+        /* Container do Spotify */
         .spotify-wrapper {
             width: 100%;
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .footer {
-            position: absolute;
-            bottom: 15px;
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.1);
-            letter-spacing: 1px;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
-    <div class="clock-container">
-        <div id="time">00:00</div>
-        <div id="date">carregando...</div>
-    </div>
+    <div class="main-container">
+        <div id="clock">00:00:00</div>
 
-    <div class="spotify-wrapper">
-        <iframe 
-            data-testid="embed-iframe" 
-            style="border-radius:12px" 
-            src="https://open.spotify.com/playlist/2ExuRqJ4s02WgJ2LhOIqjV?si=djGKIYG2RMG2ZFwhBPuK2Q&pi=ec_wF8EiSFqg-5" 
-            width="60%" 
-            height="352" 
-            frameBorder="0" 
-            allowfullscreen="" 
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-            loading="lazy">
-        </iframe>
+        <div class="spotify-wrapper">
+            <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1E4uMbyRXvdu70?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
     </div>
-
-    <div class="footer">ZEN CLOCK v2.2</div>
 
     <script>
         function updateClock() {
             const now = new Date();
             
-            // Horas e Minutos
-            const h = String(now.getHours()).padStart(2, '0');
-            const m = String(now.getMinutes()).padStart(2, '0');
-            document.getElementById('time').textContent = `${h}:${m}`;
-            
-            // Data formatada (segunda-feira, 2 de mar.)
-            const options = { weekday: 'long', day: 'numeric', month: 'short' };
-            let dateString = now.toLocaleDateString('pt-BR', options);
-            document.getElementById('date').textContent = dateString;
+            // Formatação com zero à esquerda
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            // Atualiza o texto da div clock
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
         }
 
+        // Atualiza a cada 1 segundo (1000ms)
         setInterval(updateClock, 1000);
+
+        // Executa imediatamente ao abrir a página
         updateClock();
     </script>
+
 </body>
 </html>
