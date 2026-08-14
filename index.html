@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relógio Digital</title>
     <style>
-        /* Estilização Geral */
         body {
-            background-color: #000000; /* Fundo Preto */
+            background-color: #000000;
             color: #ffffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -18,7 +17,6 @@
             min-height: 100vh;
         }
 
-        /* Container Principal */
         .main-container {
             text-align: center;
             width: 100%;
@@ -26,16 +24,14 @@
             padding: 20px;
         }
 
-        /* Estilo do Relógio */
         #clock {
             font-size: 100px;
             font-weight: bold;
             letter-spacing: 5px;
             margin-bottom: 30px;
-            font-variant-numeric: tabular-nums; /* Evita que os números "pulem" */
+            font-variant-numeric: tabular-nums; 
         }
 
-        /* Container do Spotify */
         .spotify-wrapper {
             width: 100%;
             margin-top: 10px;
@@ -56,19 +52,15 @@
         function updateClock() {
             const now = new Date();
             
-            // Formatação com zero à esquerda
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
 
-            // Atualiza o texto da div clock
             document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
         }
 
-        // Atualiza a cada 1 segundo (1000ms)
         setInterval(updateClock, 1000);
 
-        // Executa imediatamente ao abrir a página
         updateClock();
     </script>
 
